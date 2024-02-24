@@ -1,6 +1,7 @@
 <?php
 
 use FinVista\Company\Application\UseCase\CreateCompany;
+use FinVista\Company\Application\UseCase\GetCompanies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,5 +10,9 @@ Route::get('/', function () {
 });
 
 Route::post('/companies', function (Request $request) {
-    return response(app(CreateCompany::class)($request), 201);
+    return app(CreateCompany::class)($request);
+});
+
+Route::get('/companies', function (Request $request) {
+    return app(GetCompanies::class)($request);
 });

@@ -4,8 +4,10 @@ namespace Tests\Integration\Company;
 
 use FinVista\Company\Domain\CompanyRepositoryInterface;
 use FinVista\Company\Domain\Model\Company;
+use FinVista\Company\Domain\Model\CompanyCollection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Support\CompanyFactory;
 use Tests\TestCase;
 
 class CompanyRepositoryTest extends TestCase
@@ -14,7 +16,7 @@ class CompanyRepositoryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_creates_a_company_and_returns_its_id(): void
+    public function create_creates_a_company_and_returns_its_id(): void
     {
         // Arrange
         $name        = $this->faker->company;
@@ -38,6 +40,27 @@ class CompanyRepositoryTest extends TestCase
             'description' => $description,
             'address' => $address,
         ]);
+    }
+
+    /** @test */
+    public function get_returns_3_companies_when_3_companies_exist(): void
+    {
+        // Arrange
+        $company1 = CompanyFactory::create();
+        $company2 = CompanyFactory::create();
+        $company3 = CompanyFactory::create();
+
+        $companyRepository = app(CompanyRepositoryInterface::class);
+        assert($companyRepository instanceof CompanyRepositoryInterface);
+
+        // Act
+        $companies = $companyRepository->get();
+
+        // Assert
+        $this->assertInstanceOf(CompanyCollection::class, $companies);
+        $this->assertEquals($company1, $companies[0]);
+        $this->assertEquals($company2, $companies[1]);
+        $this->assertEquals($company3, $companies[2]);
     }
 
 }

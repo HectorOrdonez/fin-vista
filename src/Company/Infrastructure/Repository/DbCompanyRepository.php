@@ -4,6 +4,7 @@ namespace FinVista\Company\Infrastructure\Repository;
 
 use FinVista\Company\Domain\CompanyRepositoryInterface;
 use FinVista\Company\Domain\Model\Company;
+use FinVista\Company\Domain\Model\CompanyCollection;
 use Illuminate\Support\Facades\DB;
 
 class DbCompanyRepository implements CompanyRepositoryInterface
@@ -11,6 +12,25 @@ class DbCompanyRepository implements CompanyRepositoryInterface
     public function __construct()
     {
 
+    }
+
+    public function get(): CompanyCollection
+    {
+
+        $results = DB::select('SELECT id, name, description, address FROM companies');
+
+        return new CompanyCollection(
+            collect($results)
+                ->map(function ($result) {
+                    $company              = new Company();
+                    $company->id          = $result->id;
+                    $company->name        = $result->name;
+                    $company->description = $result->description;
+                    $company->address     = $result->address;
+
+                    return $company;
+                })
+        );
     }
 
     public function create(Company $company): int
@@ -21,6 +41,8 @@ class DbCompanyRepository implements CompanyRepositoryInterface
             $company->address,
         ]);
 
-        return DB::getPdo()->lastInsertId();
+        $company->id = DB::getPdo()->lastInsertId();
+
+        return $company->id;
     }
 }

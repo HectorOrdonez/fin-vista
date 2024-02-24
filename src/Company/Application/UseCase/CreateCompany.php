@@ -5,6 +5,7 @@ namespace FinVista\Company\Application\UseCase;
 use FinVista\Company\Domain\CompanyRepositoryInterface;
 use FinVista\Company\Domain\Model\Company;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CreateCompany
 {
@@ -13,7 +14,7 @@ class CreateCompany
 
     }
 
-    public function __invoke(Request $request): void
+    public function __invoke(Request $request): Response
     {
         $company = new Company();
         $company->name = $request->get('name');
@@ -21,5 +22,7 @@ class CreateCompany
         $company->address = $request->get('address');
 
         $this->companyRepository->create($company);
+
+        return response('', 201);
     }
 }
