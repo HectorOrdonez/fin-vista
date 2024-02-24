@@ -13,6 +13,4 @@ Route::post('/companies', function() {
         'description' => request('description'),
         'address' => request('address'),
     ]);
-
-    // redirect
 });
