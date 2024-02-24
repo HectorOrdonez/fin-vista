@@ -21,3 +21,4 @@ Fin-Vista*-
 There are a number of shortcuts for the sake of simplicity and time constrictions.
 I decided to list them here, as to document them and show awareness.
 - relying on incremental ids instead of uuids
+- using the aggregate root as also dto. Separating them would be smart as the app grows 
