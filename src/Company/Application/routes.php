@@ -1,18 +1,11 @@
 <?php
 
-use FinVista\Company\Application\UseCase\CreateCompany;
-use FinVista\Company\Application\UseCase\GetCompanies;
-use Illuminate\Http\Request;
+use FinVista\Company\Application\Controller\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/companies', function (Request $request) {
-    return app(CreateCompany::class)($request);
-});
-
-Route::get('/companies', function (Request $request) {
-    return app(GetCompanies::class)($request);
-});
+Route::post('/companies', CompanyController::class . '@store');
+Route::get('/companies', CompanyController::class . '@index');

@@ -3,7 +3,7 @@
 namespace FinVista\Company\Application\UseCase;
 
 use FinVista\Company\Domain\CompanyRepositoryInterface;
-use Illuminate\View\View;
+use FinVista\Company\Domain\Model\CompanyCollection;
 
 class GetCompanies
 {
@@ -12,10 +12,8 @@ class GetCompanies
 
     }
 
-    public function __invoke(): View
+    public function __invoke(): CompanyCollection
     {
-        $companies = $this->companyRepository->get();
-
-        return view('company::companies', compact('companies'));
+        return $this->companyRepository->get();
     }
 }
