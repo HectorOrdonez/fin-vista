@@ -1,6 +1,7 @@
 <?php
 
 use FinVista\Company\CompanyServiceProvider;
+use FinVista\User\UserServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,6 +45,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         CompanyServiceProvider::class,
+        UserServiceProvider::class,
     ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
