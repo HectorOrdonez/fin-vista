@@ -2,12 +2,10 @@
 
 namespace FinVista\Company\Domain\Model;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Company extends Model
+class Company
 {
-    use HasFactory;
-
-    protected $guarded = [];
+    public ?int $id = null;
+    public string $name = '';
+    public string $description = '';
+    public string $address = '';
 }

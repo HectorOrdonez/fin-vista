@@ -9,5 +9,5 @@ Route::get('/', function () {
 });
 
 Route::post('/companies', function (Request $request) {
-    return app(CreateCompany::class)($request);
+    return response(app(CreateCompany::class)($request), 201);
 });

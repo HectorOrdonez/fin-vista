@@ -24,9 +24,10 @@ class CompaniesTest extends TestCase
         ];
 
         // Act
-        $this->post('companies', $attributes);
+        $response = $this->post('companies', $attributes);
 
         // Assert
+        $response->assertStatus(201);
         $this->assertDatabaseHas('companies', $attributes);
     }
 }

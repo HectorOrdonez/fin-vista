@@ -14,25 +14,26 @@ class CompanyRepositoryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_creates_a_company(): void
+    public function it_creates_a_company_and_returns_its_id(): void
     {
         // Arrange
-        $name = $this->faker->company;
+        $name        = $this->faker->company;
         $description = $this->faker->text;
-        $address = $this->faker->address;
+        $address     = $this->faker->address;
 
-        $company = new Company();
-        $company->name = $name;
+        $company              = new Company();
+        $company->name        = $name;
         $company->description = $description;
-        $company->address = $address;
+        $company->address     = $address;
 
         $companyRepository = app(CompanyRepositoryInterface::class);
 
         // Act
-        $companyRepository->create($company);
+        $id = $companyRepository->create($company);
 
         // Assert
         $this->assertDatabaseHas('companies', [
+            'id' => $id,
             'name' => $name,
             'description' => $description,
             'address' => $address,
