@@ -16,3 +16,8 @@ Fin-Vista*-
   - [ ] Create company page
   - [ ] Add login page/modal
   - [ ] Add register page/modal
+
+## Shortcuts taken
+There are a number of shortcuts for the sake of simplicity and time constrictions.
+I decided to list them here, as to document them and show awareness.
+- relying on incremental ids instead of uuids
