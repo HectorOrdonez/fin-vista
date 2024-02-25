@@ -2,12 +2,14 @@ Fin-Vista*-
 | 
 
 - [ ] Backend to-do list:
-  - [ ] Users can create companies with name, description, address
+  - [x] Users can create companies with name, description, address
     - [ ] add logo with aws s3
     - [ ] redirect unauthorized users 
   - [ ] Users can see companies
   - [ ] Users can register
-  - [ ] Users can login
+  - [ ] Registered users can login
+    - [x] an email with login token is sent
+    - [ ] logging token can be used to authenticate
   
 - [ ] Frontend to-do list:
   - [ ] Landing page
@@ -22,3 +24,6 @@ There are a number of shortcuts for the sake of simplicity and time constriction
 I decided to list them here, as to document them and show awareness.
 - relying on incremental ids instead of uuids
 - using the aggregate root as also dto. Separating them would be smart as the app grows 
+- value objects introduce value but also overhead. Decided against them
+- using Mail facade instead of a wrapper. For a more purist approach, pass Mailer via DI
+- mailer creates the actual email, which should belong to the presentation layer (UI)
