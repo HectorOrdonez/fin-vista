@@ -16,6 +16,8 @@ class LandingPageTest extends TestCase
         // Assert
         $response
             ->assertStatus(200)
-            ->assertSee('this is a landing page');
+            ->assertSee('this is a landing page')
+            ->assertSee('Login')
+            ->assertSee('Register');
     }
 }

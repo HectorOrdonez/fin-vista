@@ -11,7 +11,7 @@ class SessionController extends Controller
 {
     public function create()
     {
-        return view('user::login');
+        return view('user::sessions.create');
     }
 
     public function store(Request $request,  SendLoginEmail $sendLoginEmail)
@@ -26,6 +26,6 @@ class SessionController extends Controller
             // redirect to login page with error message
         }
 
-        return redirect(route('login'));
+        return redirect(route('landing-page'));
     }
 }

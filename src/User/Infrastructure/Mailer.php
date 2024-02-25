@@ -11,7 +11,7 @@ class Mailer implements MailerInterface
 {
     public function sendToken(User $user, LoginToken $token): void
     {
-        $auth  = route('authenticate', $token->token);
+        $auth  = route('sessions.auth', $token->token);
         $email = <<<HTML
 You requested a login token. Here it is:
 <a href="{$auth}">Link</a>

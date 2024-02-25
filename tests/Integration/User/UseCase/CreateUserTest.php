@@ -2,6 +2,7 @@
 
 namespace Tests\Integration\User\UseCase;
 
+use FinVista\User\Application\UseCase\CreateUser;
 use FinVista\User\Application\UseCase\SendLoginEmail;
 use FinVista\User\Domain\LoginToken;
 use FinVista\User\Domain\LoginTokenRepositoryInterface;
@@ -15,45 +16,37 @@ use Mockery;
 use Tests\Support\UserFactory;
 use Tests\TestCase;
 
-class SendLoginEmailTest extends TestCase
+class CreateUserTest extends TestCase
 {
     use WithFaker;
     use RefreshDatabase;
 
     /** @test */
-    public function it_stores_token_and_sends_it_to_the_users_email(): void
+    public function it_stores_user_and_sends_logging_email(): void
     {
         // Arrange
-        $email = $this->faker->email;
-        $user = UserFactory::create(['email' => $email]);
-        $randomToken = 'random-token';
-        Str::createRandomStringsUsing(fn() => $randomToken);
+        $createUser = new CreateUser();
 
-        $mailer = Mockery::mock(MailerInterface::class);
-        $userRepository = app(UserRepositoryInterface::class);
-        $loginTokenRepository = app(LoginTokenRepositoryInterface::class);
-
+        $mailer = $this->createMock(MailerInterface::class);
         $mailer->shouldReceive('sendToken');
 
-        $useCase = new SendLoginEmail($mailer, $userRepository, $loginTokenRepository);
-
         // Act
-        $useCase($email);
+        $createUser($email);
 
         // Assert
-        $this->assertDatabaseHas('login_tokens', [
-            'user_id' => $user->id,
-            'token' => $randomToken,
+        $this->assertDatabaseHas('users', [
+            'email' => $email,
         ]);
-
         $mailer->shouldHaveReceived('sendToken')
-            ->withArgs(function($user, $token) use($email, $randomToken) {
+            ->withArgs(function($user, $token) use ($email) {
                 $this->assertInstanceOf(User::class, $user);
                 $this->assertInstanceOf(LoginToken::class, $token);
 
                 $this->assertEquals($email, $user->email);
-                $this->assertEquals($randomToken, $token->token);
+                $this->assertEquals($user->id, $token->userId);
+
                 return true;
             });
+
     }
 }

@@ -6,7 +6,7 @@ Fin-Vista*-
     - [ ] add logo with aws s3
     - [ ] redirect unauthorized users 
   - [ ] Users can see companies
-  - [ ] Users can register
+  - [x] Users can register
   - [ ] Registered users can login
     - [x] an email with login token is sent
     - [ ] logging token can be used to authenticate
@@ -27,3 +27,4 @@ I decided to list them here, as to document them and show awareness.
 - value objects introduce value but also overhead. Decided against them
 - using Mail facade instead of a wrapper. For a more purist approach, pass Mailer via DI
 - mailer creates the actual email, which should belong to the presentation layer (UI)
+- repositories assigning ids to the created objects, so the consumer does not need to do so
