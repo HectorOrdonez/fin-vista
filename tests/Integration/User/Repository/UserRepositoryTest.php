@@ -67,6 +67,23 @@ class UserRepositoryTest extends TestCase
     }
 
     /** @test */
+    public function findByEmail_throws_exception_when_other_users_exist_but_not_one_with_given_email(): void
+    {
+        // Arrange
+        $email          = 'missing-user@email.com';
+        UserFactory::create(['email' => 'existing-user@email.com']);
+
+        $userRepository = app(UserRepositoryInterface::class);
+        assert($userRepository instanceof UserRepositoryInterface);
+
+        // Assert
+        $this->expectException(UserNotFound::class);
+
+        // Act
+        $foundUser = $userRepository->findByEmail($email);
+    }
+
+    /** @test */
     public function findByEmail_throws_exception_when_user_does_not_exist(): void
     {
         // Arrange

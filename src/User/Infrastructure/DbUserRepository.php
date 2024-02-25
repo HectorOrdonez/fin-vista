@@ -31,7 +31,7 @@ class DbUserRepository implements UserRepositoryInterface
     /** @throws UserNotFound */
     public function findByEmail(string $email): User
     {
-        $result = DB::selectOne('SELECT id, email FROM users');
+        $result = DB::selectOne('SELECT id, email FROM users WHERE email = ?', [$email]);
 
         if($result === null)
         {

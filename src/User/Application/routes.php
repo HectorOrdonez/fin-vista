@@ -1,10 +1,13 @@
 <?php
 
-use FinVista\Company\Application\Controller\CompanyController;
+namespace FinVista\User\Application\Route;
+
 use FinVista\User\Application\Controller\LandingPageController;
-use Illuminate\Support\Facades\Route;
+use FinVista\User\Application\Controller\SessionController;
+use Illuminate\Support\Facades\Route as RouteFacade;
 
-Route::get('/', LandingPageController::class . '@index');
+RouteFacade::get('/', LandingPageController::class . '@index');
 
-Route::post('/companies', CompanyController::class . '@store');
-Route::get('/companies', CompanyController::class . '@index');
+RouteFacade::get('login', SessionController::class . '@create')->name('login');
+RouteFacade::post('login', SessionController::class . '@store');
+RouteFacade::get('auth/token{token}', SessionController::class . '@authenticate')->name('authenticate');
