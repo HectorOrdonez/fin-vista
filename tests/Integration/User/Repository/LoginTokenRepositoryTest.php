@@ -2,6 +2,7 @@
 
 namespace Tests\Integration\User\Repository;
 
+use FinVista\User\Domain\LoginToken;
 use FinVista\User\Domain\LoginTokenRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -36,4 +37,46 @@ class LoginTokenRepositoryTest extends TestCase
             'token' => $loginToken->token,
         ]);
     }
+
+    /** @test */
+    public function findByToken_returns_token_when_token_exists(): void
+    {
+        // Arrange
+        $token = 'some-random-token';
+        $user  = UserFactory::create();
+        LoginTokenFactory::create([
+            'user_id' => $user->id,
+            'token' => $token,
+        ]);
+
+        $loginTokenRepository = app(LoginTokenRepositoryInterface::class);
+        assert($loginTokenRepository instanceof LoginTokenRepositoryInterface);
+
+        // Act
+        $loginToken = $loginTokenRepository->findByToken($token);
+
+        // Assert
+        $this->assertInstanceOf(LoginToken::class, $loginToken);
+        $this->assertEquals($token, $loginToken->token);
+    }
+
+    /** @test */
+    public function delete_deletes_token(): void
+    {
+        // Arrange
+        $user       = UserFactory::create();
+        $loginToken = LoginTokenFactory::create(['user_id' => $user->id]);
+
+        $loginTokenRepository = app(LoginTokenRepositoryInterface::class);
+        assert($loginTokenRepository instanceof LoginTokenRepositoryInterface);
+
+        // Act
+        $loginTokenRepository->delete($loginToken);
+
+        // Assert
+        $this->assertDatabaseMissing('login_tokens', [
+            'token' => $loginToken->token,
+        ]);
+    }
+
 }

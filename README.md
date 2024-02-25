@@ -9,7 +9,8 @@ Fin-Vista*-
   - [x] Users can register
   - [x] Registered users can login
     - [x] an email with login token is sent
-    - [ ] logging token can be used to authenticate
+    - [x] logging token can be used to authenticate
+  - [ ] Logged-in users can log out
   
 - [ ] Frontend to-do list:
   - [ ] Landing page
@@ -18,6 +19,9 @@ Fin-Vista*-
   - [ ] Create company page
   - [ ] Add login page/modal
   - [ ] Add register page/modal
+
+- Possible refactors:
+  - Consider how to create models/aggregate roots and maybe refactor
 
 ## Shortcuts taken
 There are a number of shortcuts for the sake of simplicity and time constrictions.

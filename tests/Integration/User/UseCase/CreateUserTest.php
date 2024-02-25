@@ -26,7 +26,6 @@ class CreateUserTest extends TestCase
     {
         // Arrange
         $createUser = new CreateUser();
-
         $mailer = $this->createMock(MailerInterface::class);
         $mailer->shouldReceive('sendToken');
 

@@ -11,5 +11,8 @@ interface UserRepositoryInterface
     public function create(User $user): int;
 
     /** @throws UserNotFound */
+    public function findById(int $id): User;
+
+    /** @throws UserNotFound */
     public function findByEmail(string $email): User;
 }

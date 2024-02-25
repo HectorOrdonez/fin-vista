@@ -8,6 +8,7 @@ use FinVista\User\Domain\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Mockery;
+use Tests\Support\LoginTokenFactory;
 use Tests\Support\UserFactory;
 use Tests\TestCase;
 
@@ -57,4 +58,21 @@ class SessionsTest extends TestCase
                 return true;
             });
     }
+
+    /** @test */
+    public function a_user_authenticates_with_a_login_token(): void
+    {
+        // Arrange
+        $user = UserFactory::create();
+        $loginToken = LoginTokenFactory::create(['user_id' => $user->id]);
+
+        // Act
+        $response = $this->get('/sessions/auth?token=' . $loginToken->token);
+
+        // Assert
+        $response
+            ->assertStatus(200)
+            ->assertSee('You have logged in');
+    }
+
 }

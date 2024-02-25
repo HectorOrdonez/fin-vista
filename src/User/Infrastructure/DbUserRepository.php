@@ -35,7 +35,24 @@ class DbUserRepository implements UserRepositoryInterface
 
         if($result === null)
         {
-            UserNotFound::for($email);
+            UserNotFound::forEmail($email);
+        }
+
+        $user = new User();
+        $user->id = $result->id;
+        $user->email = $result->email;
+
+        return $user;
+    }
+
+    /** @throws UserNotFound */
+    public function findById(int $id): User
+    {
+        $result = DB::selectOne('SELECT id, email FROM users WHERE id = ?', [$id]);
+
+        if($result === null)
+        {
+            UserNotFound::forId($id);
         }
 
         $user = new User();

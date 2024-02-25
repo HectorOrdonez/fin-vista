@@ -96,4 +96,35 @@ class UserRepositoryTest extends TestCase
         // Act
         $userRepository->findByEmail('unknown@email.com');
     }
+
+    /** @test */
+    public function findById_throws_exception_when_user_does_not_exist(): void
+    {
+        // Arrange
+        $userRepository = app(UserRepositoryInterface::class);
+        assert($userRepository instanceof UserRepositoryInterface);
+
+        // Assert
+        $this->expectException(UserNotFound::class);
+
+        // Act
+        $userRepository->findById(123);
+    }
+
+    /** @test */
+    public function findById_returns_user_when_it_exists(): void
+    {
+        // Arrange
+        $user = UserFactory::create();
+
+        $userRepository = app(UserRepositoryInterface::class);
+        assert($userRepository instanceof UserRepositoryInterface);
+
+        // Act
+        $foundUser = $userRepository->findById($user->id);
+
+        // Assert
+        $this->assertInstanceOf(User::class, $foundUser);
+        $this->assertEquals($user->id, $foundUser->id);
+    }
 }

@@ -3,6 +3,7 @@
 namespace FinVista\User\Application\Controller;
 
 use App\Http\Controllers\Controller;
+use FinVista\User\Application\UseCase\AuthenticateUser;
 use FinVista\User\Application\UseCase\SendLoginEmail;
 use FinVista\User\Domain\Exception\UserNotFound;
 use Illuminate\Http\Request;
@@ -27,5 +28,12 @@ class SessionController extends Controller
         }
 
         return redirect(route('landing-page'));
+    }
+
+    public function auth(Request $request, AuthenticateUser $authenticateUser)
+    {
+        $authenticateUser($request->query('token'));
+
+        return view('user::sessions.auth');
     }
 }
