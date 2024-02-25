@@ -5,6 +5,7 @@ namespace FinVista\User\Application\Controller;
 use App\Http\Controllers\Controller;
 use FinVista\User\Application\UseCase\AuthenticateUser;
 use FinVista\User\Application\UseCase\SendLoginEmail;
+use FinVista\User\Domain\Exception\LoginTokenNotFound;
 use FinVista\User\Domain\Exception\UserNotFound;
 use Illuminate\Http\Request;
 
@@ -32,8 +33,22 @@ class SessionController extends Controller
 
     public function auth(Request $request, AuthenticateUser $authenticateUser)
     {
-        $authenticateUser($request->query('token'));
+        $token = $request->query('token');
 
-        return view('user::sessions.auth');
+        if($token === null)
+        {
+            // @todo add flash message
+            return view('user::sessions.auth', ['isLoggedIn' => false]);
+        }
+
+        try {
+            $authenticateUser($request->query('token'));
+        } catch(LoginTokenNotFound)
+        {
+            // @todo add flash message
+            return view('user::sessions.auth', ['isLoggedIn' => false]);
+        }
+
+        return view('user::sessions.auth', ['isLoggedIn' => true]);
     }
 }

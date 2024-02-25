@@ -2,6 +2,7 @@
 
 namespace FinVista\User\Infrastructure;
 
+use FinVista\User\Domain\Exception\LoginTokenNotFound;
 use FinVista\User\Domain\LoginToken;
 use FinVista\User\Domain\LoginTokenRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -20,14 +21,14 @@ class DbLoginTokenRepository implements LoginTokenRepositoryInterface
         return $token->id;
     }
 
+    /** @throws LoginTokenNotFound */
     public function findByToken(string $token): LoginToken
     {
         $result = DB::selectOne('SELECT id, user_id, token FROM login_tokens WHERE token = ?', [$token]);
 
         if($result === null)
         {
-            // @todo
-//            UserNotFound::for($email);
+            LoginTokenNotFound::for($token);
         }
 
         $loginToken = new LoginToken();

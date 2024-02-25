@@ -11,10 +11,10 @@ class Mailer implements MailerInterface
 {
     public function sendToken(User $user, LoginToken $token): void
     {
-        $auth  = route('sessions.auth', $token->token);
+        $auth  = route('sessions.auth');
         $email = <<<HTML
 You requested a login token. Here it is:
-<a href="{$auth}">Link</a>
+<a href="$auth?token=$token->token">Link</a>
 HTML;
 
         Mail::raw($email, function ($message) use ($user) {

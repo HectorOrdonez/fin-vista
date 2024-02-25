@@ -2,6 +2,7 @@
 
 namespace Tests\Integration\User\Repository;
 
+use FinVista\User\Domain\Exception\LoginTokenNotFound;
 use FinVista\User\Domain\LoginToken;
 use FinVista\User\Domain\LoginTokenRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -58,6 +59,28 @@ class LoginTokenRepositoryTest extends TestCase
         // Assert
         $this->assertInstanceOf(LoginToken::class, $loginToken);
         $this->assertEquals($token, $loginToken->token);
+    }
+
+    /** @test */
+    public function findByToken_throws_exception_when_token_does_not_match(): void
+    {
+        // Arrange
+        $validToken = 'valid-token';
+        $missingToken = 'missing-token';
+        $user  = UserFactory::create();
+        LoginTokenFactory::create([
+            'user_id' => $user->id,
+            'token' => $validToken,
+        ]);
+
+        $loginTokenRepository = app(LoginTokenRepositoryInterface::class);
+        assert($loginTokenRepository instanceof LoginTokenRepositoryInterface);
+
+        // Assert
+        $this->expectException(LoginTokenNotFound::class);
+
+        // Act
+        $loginTokenRepository->findByToken($missingToken);
     }
 
     /** @test */

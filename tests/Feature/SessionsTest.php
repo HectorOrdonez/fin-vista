@@ -73,6 +73,36 @@ class SessionsTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertSee('You have logged in');
+        $this->assertAuthenticatedAs($user);
     }
 
+    /** @test */
+    public function a_user_cannot_authenticate_with_invalid_token(): void
+    {
+        // Arrange
+        $invalidToken = 'this-is-an-invalid-token';
+
+        // Act
+        $response = $this->get('/sessions/auth?token=' . $invalidToken);
+
+        // Assert
+        $response
+            ->assertStatus(200)
+            ->assertSee('Unknown token');
+        $this->assertGuest();
+    }
+
+    /** @test */
+    public function a_user_cannot_authenticate_without_token(): void
+    {
+        // Arrange
+        // Act
+        $response = $this->get('/sessions/auth');
+
+        // Assert
+        $response
+            ->assertStatus(200)
+            ->assertSee('Unknown token');
+        $this->assertGuest();
+    }
 }

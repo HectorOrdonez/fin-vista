@@ -1,3 +1,7 @@
 <h1>auth page</h1>
 
-You have logged in
+@if($isLoggedIn)
+    You have logged in
+@else
+    Unknown token
+@endif
