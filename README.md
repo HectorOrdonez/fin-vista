@@ -7,7 +7,7 @@ Fin-Vista*-
     - [ ] redirect unauthorized users 
   - [ ] Users can see companies
   - [x] Users can register
-  - [ ] Registered users can login
+  - [x] Registered users can login
     - [x] an email with login token is sent
     - [ ] logging token can be used to authenticate
   
