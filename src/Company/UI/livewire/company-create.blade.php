@@ -1,33 +1,38 @@
-<div>
-    <h2>Create Company</h2>
+<section class="w-full">
+    <div class="bg-tertiary m-8 p-8 rounded-3xl w-min justify-center mx-auto">
 
-    <form method="post" wire:submit.prevent="submit" action="{{ route('companies.store') }}">
-        {{ csrf_field() }}
+        <header class="my-4">
+            <h1 class="text-2xl text-highlight">Create company</h1>
+        </header>
 
-        <div class="block">
-            <label for="name"></label>
-            <input type="text" name="name" id="name" wire:model="name"/>
-        </div>
-        @error('name')
-        name is bad
-        @enderror
+        <form method="post" wire:submit.prevent="submit" action="{{ route('companies.store') }}">
+            {{ csrf_field() }}
 
-        <div class="block">
-            <label for="description"></label>
-            <input type="text" name="description" id="description" wire:model="description"/>
-        </div>
-        @error('description')
-        description is bad
-        @enderror
+            <div class="my-4">
+                <label for="name" class="text-highlight block text-sm font-medium leading-6">Name</label>
+                <input type="text" class="bg-primary text-secondary p-1 rounded-md" name="name" id="name" wire:model="name"/>
+            </div>
+            @error('name')
+            name is bad
+            @enderror
 
-        <div class="block">
-            <label for="address"></label>
-            <input type="text" name="address" id="address" wire:model="address"/>
-        </div>
-        @error('address')
-        address is bad
-        @enderror
+            <div class="my-4">
+                <label for="description" class="text-highlight block text-sm font-medium leading-6">Description</label>
+                <input type="text" class="bg-primary text-secondary p-1 rounded-md" name="description" id="description" wire:model="description"/>
+            </div>
+            @error('description')
+            description is bad
+            @enderror
 
-        <input type="submit" value="Go!"/>
-    </form>
-</div>
+            <div class="my-4">
+                <label for="address" class="text-highlight block text-sm font-medium leading-6">Address</label>
+                <input type="text" class="bg-primary text-secondary p-1 rounded-md" name="address" id="address" wire:model="address"/>
+            </div>
+            @error('address')
+            address is bad
+            @enderror
+
+            <input type="submit" value="Go!" class="bg-primary p-2 rounded text-highlight font-bold mt-4"/>
+        </form>
+    </div>
+</section>

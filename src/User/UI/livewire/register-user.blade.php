@@ -1,15 +1,20 @@
-<div>
-    <h1>registration page</h1>
+<section class="w-full">
+    <div class="bg-tertiary m-8 p-8 rounded-3xl w-min justify-center mx-auto">
+        <header class="my-4">
+            <h1 class="text-2xl text-highlight">Registration</h1>
+        </header>
 
-    <form method="post" wire:submit.prevent="submit" action="{{ route('users.store') }}">
-        {{ csrf_field() }}
+        <form method="post" wire:submit.prevent="submit" action="{{ route('users.store') }}">
+            @csrf <!-- {{ csrf_field() }} -->
 
-        <h2>Register</h2>
-        <label for="email"></label>
-        <input type="email" name="email" id="email" wire:model="email"/>
-        @error('email')
-        {{ $message }}
-        @enderror
-        <input type="submit" value="Go!"/>
-    </form>
-</div>
+            <div class="my-4">
+                <label for="email" class="text-highlight block text-sm font-medium leading-6">Email</label>
+                <input type="text" class="bg-primary text-secondary p-1 rounded-md" name="email" id="email" wire:model="email"/>
+            </div>
+            @error('email')
+            {{ $message }}
+            @enderror
+            <input type="submit" value="Go!" class="bg-primary p-2 rounded text-highlight font-bold mt-4"/>
+        </form>
+    </div>
+</section>
