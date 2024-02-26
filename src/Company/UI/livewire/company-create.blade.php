@@ -2,7 +2,7 @@
     <h2>Create Company</h2>
 
     <form method="post" wire:submit.prevent="submit" action="{{ route('companies.store') }}">
-        {{ csrf_field()}}
+        {{ csrf_field() }}
 
         <div class="block">
             <label for="name"></label>

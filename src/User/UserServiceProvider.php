@@ -2,6 +2,8 @@
 
 namespace FinVista\User;
 
+use FinVista\User\Application\Livewire\LoginUser;
+use FinVista\User\Application\Livewire\RegisterUser;
 use FinVista\User\Domain\LoginTokenRepositoryInterface;
 use FinVista\User\Domain\MailerInterface;
 use FinVista\User\Domain\UserRepositoryInterface;
@@ -11,6 +13,7 @@ use FinVista\User\Infrastructure\Mailer;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Livewire\Livewire;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,9 @@ class UserServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Livewire::component('login-user', LoginUser::class);
+        Livewire::component('register-user', RegisterUser::class);
+
         $this->routes(function () {
             Route::middleware('web')
                 ->group(base_path('src/User/Application/routes.php'));
