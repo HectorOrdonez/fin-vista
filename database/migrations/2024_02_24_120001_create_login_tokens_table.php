@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('token', 50)->index();
             $table->timestamps();
 
