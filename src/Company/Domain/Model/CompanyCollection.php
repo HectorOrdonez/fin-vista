@@ -17,6 +17,10 @@ class CompanyCollection extends Collection
                 'name' => $company->name,
                 'description' => $company->description,
                 'address' => $company->address,
+                'industry' => $company->details->industry,
+                'currency' => $company->details->currency,
+                'dividend_per_share' => $company->details->dividendPerShare,
+                'last_50_days_avg' => $company->details->last50DaysAvg,
             ];
         }
 

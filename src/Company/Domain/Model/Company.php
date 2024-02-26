@@ -8,4 +8,5 @@ class Company
     public string $name = '';
     public string $description = '';
     public string $address = '';
+    public ?FinancialDetails $details = null;
 }

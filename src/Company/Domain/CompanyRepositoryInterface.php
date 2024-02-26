@@ -9,5 +9,6 @@ interface CompanyRepositoryInterface
 {
     public function create(Company $company): int;
 
-    public function get(): CompanyCollection;
+    /** @return CompanyCollection|Company[] */
+    public function get(): CompanyCollection|array;
 }

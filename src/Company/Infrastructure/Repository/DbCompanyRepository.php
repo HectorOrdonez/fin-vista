@@ -14,7 +14,7 @@ class DbCompanyRepository implements CompanyRepositoryInterface
 
     }
 
-    public function get(): CompanyCollection
+    public function get(): CompanyCollection|array
     {
 
         $results = DB::select('SELECT id, name, description, address FROM companies');
