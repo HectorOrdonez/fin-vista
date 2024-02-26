@@ -11,10 +11,9 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
-    public function index(GetCompanies $getCompanies): View
+    public function index(): View
     {
-        $companies = $getCompanies();
-        return view('company::companies', compact('companies'));
+        return view('company::index');
     }
 
     public function store(Request $request, CreateCompany $createCompany): Response
