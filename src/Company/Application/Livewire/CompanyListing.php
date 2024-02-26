@@ -8,15 +8,12 @@ use Livewire\Component;
 
 class CompanyListing extends Component
 {
-    public CompanyCollection $companies;
+    public array $companies;
 
-    public function mount(GetCompanies $getCompanies)
+    public function render(GetCompanies $getCompanies)
     {
-        $this->companies = $getCompanies();
-    }
+        $this->companies = ($getCompanies)()->toArray();
 
-    public function render()
-    {
         return view('company::livewire.company-listing');
     }
 }

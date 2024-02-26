@@ -2,6 +2,7 @@
 
 namespace FinVista\Company;
 
+use FinVista\Company\Application\Livewire\CompanyCreate;
 use FinVista\Company\Application\Livewire\CompanyListing;
 use FinVista\Company\Domain\CompanyRepositoryInterface;
 use FinVista\Company\Infrastructure\Repository\DbCompanyRepository;
@@ -18,14 +19,15 @@ class CompanyServiceProvider extends ServiceProvider
         parent::register();
 
         $this->app->bind(CompanyRepositoryInterface::class, DbCompanyRepository::class);
-
-        View::addNamespace('company', base_path('src/Company/UI'));
     }
 
     public function boot(): void
     {
+        View::addNamespace('company', base_path('src/Company/UI'));
+
         Blade::anonymousComponentPath(__DIR__ . '/UI/', 'companies');
         Livewire::component('company-listing', CompanyListing::class);
+        Livewire::component('company-create', CompanyCreate::class);
 
         $this->routes(function () {
             Route::middleware('web')

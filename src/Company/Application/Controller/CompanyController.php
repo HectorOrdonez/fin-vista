@@ -4,7 +4,6 @@ namespace FinVista\Company\Application\Controller;
 
 use App\Http\Controllers\Controller;
 use FinVista\Company\Application\UseCase\CreateCompany;
-use FinVista\Company\Application\UseCase\GetCompanies;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -25,5 +24,10 @@ class CompanyController extends Controller
         );
 
         return Response('Ok', 201);
+    }
+
+    public function create(): View
+    {
+        return view('company::create');
     }
 }

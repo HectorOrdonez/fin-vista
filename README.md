@@ -32,3 +32,4 @@ I decided to list them here, as to document them and show awareness.
 - using Mail facade instead of a wrapper. For a more purist approach, pass Mailer via DI
 - mailer creates the actual email, which should belong to the presentation layer (UI)
 - repositories assigning ids to the created objects, so the consumer does not need to do so
+- same model for presenting data. I need to think about UI
