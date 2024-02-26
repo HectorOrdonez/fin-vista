@@ -1,10 +1,12 @@
-<h1>registration page</h1>
+<x-shared::app>
+    <h1>registration page</h1>
 
-<form method="POST" action="{{ route('users.store') }}">
-    @csrf <!-- {{ csrf_field() }} -->
+    <form method="POST" action="{{ route('users.store') }}">
+        @csrf <!-- {{ csrf_field() }} -->
 
-    <h2>Register</h2>
-    <input type="email" name="email" id="email"/>
-    <button>Register</button>
-</form>
+        <h2>Register</h2>
+        <input type="email" name="email" id="email"/>
+        <button>Register</button>
+    </form>
+</x-shared::app>
 

@@ -1,6 +1,7 @@
 <?php
 
 use FinVista\Company\CompanyServiceProvider;
+use FinVista\Shared\SharedServiceProvider;
 use FinVista\User\UserServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
@@ -45,6 +46,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         CompanyServiceProvider::class,
+        SharedServiceProvider::class,
         UserServiceProvider::class,
     ])->toArray(),
 
