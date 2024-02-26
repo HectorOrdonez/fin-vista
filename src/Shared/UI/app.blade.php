@@ -7,7 +7,10 @@
 <body>
 <h1>App Layout</h1>
 
+<x-components.nav></x-components.nav>
+
 {{ $slot }}
+
 <livewire:scripts/>
 </body>
 </html>

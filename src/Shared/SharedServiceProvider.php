@@ -10,5 +10,6 @@ class SharedServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::anonymousComponentPath(__DIR__ . '/UI/', 'shared');
+        Blade::anonymousComponentPath(__DIR__ . '/UI/components', 'shared-components');
     }
 }
