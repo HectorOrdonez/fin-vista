@@ -2,7 +2,11 @@ Fin-Vista
 
 # Installation
 - git clone the repository
-- [...]
+- run composer install on it
+- copy .env.example into .env
+- sail up -d
+- sail artisan key:generate
+- npm install
 - get an api key from https://www.alphavantage.co/
   - save this in the env ALPHAVANTAGE_API_KEY
 

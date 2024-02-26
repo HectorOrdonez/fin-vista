@@ -35,6 +35,12 @@ class AlphavantageFinancialSource implements ExternalFinancialSourceInterface
             return $this->makeRandomFinancialDetails();
         }
 
+        // Api Key probably not set
+        if(isset($data['Error Message']))
+        {
+            throw new \Exception('Did you forget to set the api key from Alphavantage?');
+        }
+
         $details = new FinancialDetails();
         $details->industry = $data['Industry'];
         $details->currency = $data['Currency'];
