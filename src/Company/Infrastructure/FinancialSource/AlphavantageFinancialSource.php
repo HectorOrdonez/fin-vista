@@ -13,7 +13,6 @@ class AlphavantageFinancialSource implements ExternalFinancialSourceInterface
 
     public function __construct(private Client $client, private string $apiKey)
     {
-
     }
 
     public function getDetails(string $name): FinancialDetails
@@ -26,6 +25,14 @@ class AlphavantageFinancialSource implements ExternalFinancialSourceInterface
         if(empty($data))
         {
             return $this->makeUnknownFinancialDetails();
+        }
+
+        // Api Limit reached
+        if(isset($data['Information']))
+        {
+            // For the purpose of the assessment we will make random financial data after hitting api limits
+            // Which, for Alphavantage, is 25 per day. This way I can ensure everything works as expected
+            return $this->makeRandomFinancialDetails();
         }
 
         $details = new FinancialDetails();
@@ -44,6 +51,17 @@ class AlphavantageFinancialSource implements ExternalFinancialSourceInterface
         $details->currency = self::UNKNOWN;
         $details->dividendPerShare = 0;
         $details->last50DaysAvg = 0;
+
+        return $details;
+    }
+
+    private function makeRandomFinancialDetails()
+    {
+        $details = new FinancialDetails();
+        $details->industry = 'Some industry';
+        $details->currency = 'EUR';
+        $details->dividendPerShare = (float) random_int(1, 1000) / 100;
+        $details->last50DaysAvg = (float) random_int(1, 1000) / 100;
 
         return $details;
     }

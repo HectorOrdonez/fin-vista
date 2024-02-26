@@ -32,7 +32,7 @@ class UsersTest extends TestCase
     public function a_user_gets_an_email_when_successfully_registering(): void
     {
         // Arrange
-        $email       = $this->faker->safeEmail;
+        $email = $this->faker->safeEmail;
 
         $mailer = Mockery::mock(MailerInterface::class);
         $mailer->shouldReceive('sendToken');

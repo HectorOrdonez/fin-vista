@@ -7,6 +7,7 @@ use FinVista\Company\Application\Livewire\CompanyListing;
 use FinVista\Company\Domain\CompanyRepositoryInterface;
 use FinVista\Company\Domain\ExternalFinancialSourceInterface;
 use FinVista\Company\Infrastructure\FinancialSource\AlphavantageFinancialSource;
+use FinVista\Company\Infrastructure\FinancialSource\CachedFinancialSource;
 use FinVista\Company\Infrastructure\Repository\DbCompanyRepository;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -23,7 +24,9 @@ class CompanyServiceProvider extends ServiceProvider
 
         $this->app->bind(CompanyRepositoryInterface::class, DbCompanyRepository::class);
         $this->app->bind(ExternalFinancialSourceInterface::class, function () {
-            return new AlphavantageFinancialSource(new Client(), env('ALPHAVANTAGE_API_KEY'));
+            $source = new AlphavantageFinancialSource(new Client(), env('ALPHAVANTAGE_API_KEY'));
+
+            return new CachedFinancialSource(cache(), $source);
         });
     }
 
